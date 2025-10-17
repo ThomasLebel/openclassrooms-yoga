@@ -4,6 +4,8 @@
   "scripts": {
     "start": "ng serve",
     "test": "jest --coverage",
+    "test:unit": "jest --testPathPattern=.unit.spec.ts$",
+    "test:int": "jest --testPathPattern=.int.spec.ts$",
     "test:watch": "jest --watch",
     "lint": "ng lint",
     "e2e": "ng e2e",

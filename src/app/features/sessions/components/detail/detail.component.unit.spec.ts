@@ -6,9 +6,11 @@ import { expect } from '@jest/globals';
 import { SessionService } from '../../../../services/session.service';
 
 import { ActivatedRoute, Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { TeacherService } from 'src/app/services/teacher.service';
 import { SessionApiService } from '../../services/session-api.service';
+import { ListComponent } from '../list/list.component';
 import { DetailComponent } from './detail.component';
 
 describe('DetailComponent', () => {
@@ -35,10 +37,6 @@ describe('DetailComponent', () => {
     open: jest.fn(),
   };
 
-  const mockRouter = {
-    navigate: jest.fn(),
-  };
-
   const mockTeacherService = {
     detail: jest.fn(),
   };
@@ -53,7 +51,14 @@ describe('DetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientModule, MatSnackBarModule, ReactiveFormsModule],
+      imports: [
+        HttpClientModule,
+        MatSnackBarModule,
+        ReactiveFormsModule,
+        RouterTestingModule.withRoutes([
+          { path: 'sessions', component: ListComponent },
+        ]),
+      ],
       declarations: [DetailComponent],
       providers: [
         {
@@ -73,13 +78,13 @@ describe('DetailComponent', () => {
         { provide: SessionApiService, useValue: mockSessionApiService },
         { provide: TeacherService, useValue: mockTeacherService },
         { provide: MatSnackBar, useValue: mockSnackBar },
-        { provide: Router, useValue: mockRouter },
       ],
     }).compileComponents();
     mockSessionApiService.detail.mockReturnValue(of(undefined));
     mockTeacherService.detail.mockReturnValue(of(mockTeacher));
     service = TestBed.inject(SessionService);
     fixture = TestBed.createComponent(DetailComponent);
+    router = TestBed.inject(Router);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -95,10 +100,13 @@ describe('DetailComponent', () => {
   });
 
   it('delete() should call sessionApiService.delete, matSnackBar.open and router.navigate', () => {
+    const navigateSpy = jest
+      .spyOn(router, 'navigate')
+      .mockImplementation(() => Promise.resolve(true));
     mockSessionApiService.delete.mockReturnValue(of(true));
     component.delete();
     expect(mockSnackBar.open).toBeCalled();
-    expect(mockRouter.navigate).toBeCalledWith(['sessions']);
+    expect(navigateSpy).toHaveBeenCalledWith(['sessions']);
   });
 
   it('participate() should call sessionApiService.participate and then fetchSession', () => {
@@ -111,7 +119,6 @@ describe('DetailComponent', () => {
 
     component.participate();
 
-    // Vérifications
     expect(mockSessionApiService.participate).toHaveBeenCalledWith(
       component.sessionId,
       component.userId
@@ -129,7 +136,6 @@ describe('DetailComponent', () => {
 
     component.unParticipate();
 
-    // Vérifications
     expect(mockSessionApiService.unParticipate).toHaveBeenCalledWith(
       component.sessionId,
       component.userId
