@@ -30,31 +30,6 @@ Puis ouvrir http://localhost:4200 dans le navigateur.
   ng build
 ```
 
-## 🛠️ Fonctionnement du code
-
-- **Gestion des données**
-
-  - Les données olympiques sont fournies via un Observable (olympics$).
-  - Sur la page d'accueil, l'app calcule :
-
-    - Le nombre total de JOs
-    - Le nombre de pays
-    - Les données du graphique circulaire avec le nombre de médailles reçues par pays
-
-  - Lorsqu’un pays est sélectionné, l’app calcule :
-    - Le nombre total de médailles,
-    - Le nombre total d’athlètes,
-    - Les données du graphique en ligne avec le nombre de médailles reçues par année du pays sélectionné
-
-- **Gestion des erreurs**
-  
-  Si l'utilisateur essaie d'accéder à une route inexistante ou à un pays qui n'est pas présent dans les données, il est redirigé vers une page d'erreur.
-
-- **Composants réutilisables**
-
-  - Un composant Loader est utilisé pour l’affichage lors du chargement des données.
-  - Les graphiques sont générés avec ngx-charts.
-
 ## 🧪 ️Lancer les tests
 
 Tests unitaires avec Jest
