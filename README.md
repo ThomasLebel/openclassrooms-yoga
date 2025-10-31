@@ -8,7 +8,7 @@ Frontend pour le projet Yoga, développé en Angular 14
 
 ```bash
     git clone https://github.com/ThomasLebel/yoga-frontend.git
-    cd telesport-olympics
+    cd yoga-frontend
 ```
 
 ### 2. Installer les dépendances
