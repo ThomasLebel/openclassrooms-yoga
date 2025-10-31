@@ -1,72 +1,83 @@
-# Yoga
+# 🧘‍♀️ Yoga Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.0.
+Frontend pour le projet Yoga, développé en Angular 14
 
-## Start the project
+## 🚀 Installation & lancement
 
-Git clone:
+### 1. Cloner le projet
 
-> git clone https://github.com/OpenClassrooms-Student-Center/P5-Full-Stack-testing
+```bash
+    git clone https://github.com/ThomasLebel/yoga-frontend.git
+    cd telesport-olympics
+```
 
-Go inside folder:
+### 2. Installer les dépendances
 
-> cd yoga
+```bash
+  npm install
+```
 
-Install dependencies:
+### 3. Lancer l’application en mode développement
 
-> npm install
+```bash
+  ng serve
+```
+Puis ouvrir http://localhost:4200 dans le navigateur.
 
-Launch Front-end:
+### 4. Build pour la production
 
-> npm run start;
+```bash
+  ng build
+```
 
+## 🛠️ Fonctionnement du code
 
-## Ressources
+- **Gestion des données**
 
-### Mockoon env 
+  - Les données olympiques sont fournies via un Observable (olympics$).
+  - Sur la page d'accueil, l'app calcule :
 
-### Postman collection
+    - Le nombre total de JOs
+    - Le nombre de pays
+    - Les données du graphique circulaire avec le nombre de médailles reçues par pays
 
-For Postman import the collection
+  - Lorsqu’un pays est sélectionné, l’app calcule :
+    - Le nombre total de médailles,
+    - Le nombre total d’athlètes,
+    - Les données du graphique en ligne avec le nombre de médailles reçues par année du pays sélectionné
 
-> ressources/postman/yoga.postman_collection.json 
+- **Gestion des erreurs**
+  
+  Si l'utilisateur essaie d'accéder à une route inexistante ou à un pays qui n'est pas présent dans les données, il est redirigé vers une page d'erreur.
 
-by following the documentation: 
+- **Composants réutilisables**
 
-https://learning.postman.com/docs/getting-started/importing-and-exporting-data/#importing-data-into-postman
+  - Un composant Loader est utilisé pour l’affichage lors du chargement des données.
+  - Les graphiques sont générés avec ngx-charts.
 
+## 🧪 ️Lancer les tests
 
-### MySQL
+Tests unitaires avec Jest
 
-SQL script for creating the schema is available `ressources/sql/script.sql`
+```bash
+  ng test
+```
 
-By default the admin account is:
-- login: yoga@studio.com
-- password: test!1234
+Le rapport de couverture sera dispo dans **coverage/jest/index.html**
 
+Tests d'intégration avec Cypress
 
-### Test
+```bash
+  ng e2e
+```
 
-#### E2E
+Le rapport de couverture sera dispo dans **coverage/lcov-report/index.html**
 
-Launching e2e test:
+## 📊 Rapports de couverture
 
-> npm run e2e
+Jest 
+<img width="1917" height="622" alt="image" src="https://github.com/user-attachments/assets/b5e71958-8ce3-4970-bb0f-a360302d1637" />
 
-Generate coverage report (you should launch e2e test before):
+Cypress
+<img width="1921" height="853" alt="image" src="https://github.com/user-attachments/assets/0a7e6b9e-2f1a-47ac-9b8b-a19b684eb066" />
 
-> npm run e2e:coverage
-
-Report is available here:
-
-> front/coverage/lcov-report/index.html
-
-#### Unitary test
-
-Launching test:
-
-> npm run test
-
-for following change:
-
-> npm run test:watch
